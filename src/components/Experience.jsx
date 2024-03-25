@@ -1,5 +1,6 @@
 import { Environment, Gltf, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Emilian } from "../../public/models/Emilian";
 
 const Experience = () => {
   return (
@@ -12,11 +13,11 @@ const Experience = () => {
         position={[0, -8, 0]}
         rotation={[0, Math.PI, 0]}
       />
-      <Gltf
-        src="/models/emilian.glb"
+
+      <Emilian
         scale={(7, 7, 7)}
-        position={[-11, -7.95, -14]}
-        rotation={[0, 0.5, 0]}
+        position={[-12, -7.95, -14]}
+        rotation={[0, 1, 0]}
       />
     </Canvas>
   );
