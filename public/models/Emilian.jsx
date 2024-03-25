@@ -6,7 +6,6 @@ export function Emilian(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(modelPath);
   const { actions, mixer } = useAnimations(animations, group);
-  //   console.log(animations);
 
   useEffect(() => {
     mixer
