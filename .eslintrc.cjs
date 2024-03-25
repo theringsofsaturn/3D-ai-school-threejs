@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     "react/no-unknown-property": "off",
     "no-unused-vars": "off",
+    "no-undef": "off",
     "react/jsx-no-target-blank": "off",
     "react-refresh/only-export-components": [
       "warn",
