@@ -16,7 +16,7 @@
   color: #000000;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, sans-serif;
+  /* font-family: -apple-system, sans-serif; */
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: -0.24px;
@@ -103,12 +103,6 @@
   outline: none;
 }
 
-.send-icon {
-  font-size: 30px;
-  color: #fff;
-  transition: transform 0.3s ease;
-}
-
 #cover button:hover .send-icon {
   transform: translateX(5px);
 }
@@ -125,6 +119,61 @@
   background-color: transparent;
   border-radius: 50%;
   transition: 0.5s ease all;
+}
+
+.input-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container form {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.input-container input[type="text"] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  color: #333;
+  background-color: transparent;
+}
+
+.input-container button {
+  background-color: #ff7575;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-container button:hover {
+  background-color: #ff5c5c;
+}
+
+.input-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.send-icon {
+  display: inline-block;
+  margin-right: 5px;
 }
 
 /* Modal Box */
@@ -156,7 +205,7 @@
 }
 
 .content {
-  font-family: "Skranji", cursive;
+  /* font-family: "Skranji", cursive; */
   background: radial-gradient(#fffbf3, #ffe19e);
   padding: 24px;
   box-sizing: border-box;
@@ -171,8 +220,8 @@
 }
 
 .content p {
-  font-size: 24px;
-  padding: 20px;
+  font-size: 16px;
+  padding: 10px;
   box-sizing: border-box;
   color: #461417;
 }
@@ -190,7 +239,7 @@
     flex: 1;
     border-radius: 20px;
     border: 2px solid #49181e;
-    font-family: "Skranji", cursive;
+    /* font-family: "Skranji", cursive; */
     color: #fff;
     font-size: 32px;
     text-shadow: 1px 2px 3px #000000;
@@ -214,4 +263,18 @@
       }
     }
   }
+}
+
+.welcome-message {
+  font-size: 24px;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #461417;
+  text-align: center;
+}
+
+.user-message,
+.teacher-response {
+  font-size: 16px;
+  line-height: 1.5;
 }

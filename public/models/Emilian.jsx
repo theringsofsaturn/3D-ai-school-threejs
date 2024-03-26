@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import modelPath from "./emilian.glb";
+import modelPath from "./emilian-avatar.glb";
 
 export function Emilian(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(modelPath);
   const { actions, mixer } = useAnimations(animations, group);
+  console.log("ANIMATIONS", animations);
 
   useEffect(() => {
     mixer
