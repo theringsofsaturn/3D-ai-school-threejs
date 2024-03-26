@@ -27,7 +27,6 @@ export const Chat = () => {
           },
         }
       );
-
       const generatedText = response.data.response;
       setTeacherResponse(generatedText);
     } catch (error) {
@@ -46,22 +45,44 @@ export const Chat = () => {
         {showInput ? "Close Chat" : "Ask a Question"}
       </button>
       {showInput && (
-        <form className="chat-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={userInput}
-            onChange={handleUserInput}
-            placeholder="Type your question..."
-            className="chat-input"
-          />
-          <button type="submit" disabled={loading} className="submit-button">
-            {loading ? "Sending..." : "Send"}
-          </button>
-        </form>
+        <div className={`chat-form ${showInput ? "show" : ""}`}>
+          <div id="cover">
+            <form onSubmit={handleSubmit}>
+              <div className="tb">
+                <div className="td">
+                  <input
+                    type="text"
+                    value={userInput}
+                    onChange={handleUserInput}
+                    placeholder="Type your message..."
+                    required
+                  />
+                  <button type="submit" disabled={loading}>
+                    <i className="send-icon">{loading ? "Sending..." : "➤"}</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
       {teacherResponse && (
-        <div className="chat-box">
-          <p className="teacher-response">{teacherResponse}</p>
+        <div className={`chat-box ${teacherResponse ? "show" : ""}`}>
+          <div id="container">
+            <div className="container-inner">
+              <div className="content">
+                <p className="teacher-response">{teacherResponse}</p>
+              </div>
+              <div className="buttons">
+                <button type="button" className="confirm">
+                  Close
+                </button>
+                <button type="button" className="cancel">
+                  New Chat
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
