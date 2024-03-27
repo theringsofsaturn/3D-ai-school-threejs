@@ -278,3 +278,23 @@
   font-size: 16px;
   line-height: 1.5;
 }
+
+.chat-component.chat-open {
+  pointer-events: auto;
+}
+
+.chat-component {
+  pointer-events: none;
+}
+
+.chat-box {
+  pointer-events: none;
+}
+
+.chat-box.show {
+  pointer-events: auto;
+}
+
+.chat-button {
+  pointer-events: auto;
+}
