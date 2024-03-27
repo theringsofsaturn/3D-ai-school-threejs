@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./Chat.css";
 
@@ -7,7 +7,92 @@ export const Chat = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const recognitionRef = useRef(null);
 
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  // voice assistance
+  const startListening = () => {
+    if (!SpeechRecognition) {
+      console.error("Speech recognition is not supported in this browser.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en";
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognitionRef.current = recognition;
+
+    recognition.onresult = (event) => {
+      let interimTranscript = "";
+      let finalTranscript = "";
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + " ";
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      setUserInput(finalTranscript);
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+      if (userInput.trim() !== "") {
+        handleSubmit(new Event("submit"));
+      }
+    };
+
+    recognition.start();
+    setIsListening(true);
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
+  const speak = (text) => {
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.pitch = 1;
+    utterance.rate = 1;
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+
+    synthesis.speak(utterance);
+  };
+
+  useEffect(() => {
+    if (chatHistory.length > 0) {
+      const lastResponse = chatHistory[chatHistory.length - 1].bot;
+      speak(lastResponse);
+    }
+  }, [chatHistory]);
+  // end voice assistant
+
+  // event handlers
   const handleUserInput = (e) => {
     setUserInput(e.target.value);
   };
@@ -82,6 +167,17 @@ export const Chat = () => {
                     placeholder="Type your message..."
                     required
                   />
+                  {SpeechRecognition && (
+                    <button
+                      type="button"
+                      onMouseDown={startListening}
+                      onMouseUp={stopListening}
+                      onTouchStart={startListening}
+                      onTouchEnd={stopListening}
+                    >
+                      {isListening ? "Listening..." : "Hold to Speak"}
+                    </button>
+                  )}
                   <button type="submit" disabled={loading}>
                     <i className="send-icon">{loading ? "Sending..." : "➤"}</i>
                     <span>Send</span>
